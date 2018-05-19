@@ -42,8 +42,11 @@ document.onkeyup = function(event) {
     }
 
     if (guesses === 0 && remainingLetters > 0) {
-        // Exit the game loop.
-        console.log("You lose!");
+        function changeImage(img) {
+            document.getElementById("changePic").src = img.src.replace("./assets/images/lose_Starbuck.png");
+            console.log("image");
+        }
+            console.log("You lose!");
     } else if (guesses > 0 && remainingLetters ===0) {
         console.log("You win!");
     }
