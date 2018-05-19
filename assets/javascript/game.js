@@ -17,7 +17,7 @@ console.log('RANDOM WORD: '+ word);
 
 var remainingLetters = word.length;
 var guesses = 9;
-var userVal;
+var guessedLetters = [];
 var letterGuessed;
 
 
@@ -34,38 +34,42 @@ document.onkeyup = function(event) {
     // Converts all key clicks to uppercase letters.
     letterGuessed = String.fromCharCode(event.which).toUpperCase();
     // Runs the code to check for correctness.
-    checkLetters(letterGuessed);
-    guesses--;
+    if (remainingLetters > 0 && guesses > 0) {
+        guessedLetters.push(letterGuessed); 
+        checkLetters(letterGuessed);
+        guesses--;
+        console.log(guesses); 
+    }
+
+    if (guesses === 0 && remainingLetters > 0) {
+        // Exit the game loop.
+        console.log("You lose!");
+    } else if (guesses > 0 && remainingLetters ===0) {
+        console.log("You win!");
+    }
 }
 
 function checkLetters(ltr){
-    while (remainingLetters > 0) {
-        console.log('USER VAL IN WHILE LOOP IS: ' + userVal)
-        
-        //Show the player their progress.
-        document.getElementById("blanks").innerHTML = answerArray.join(" ");
-
-     if (guesses === 0) {
-        // Exit the game loop.
-        console.log("You lose!");
-        break;
-    } else if (guesses > 0 ) {
-        console.log("USER VAL IN ELSE IF: "+ ltr)
-        for (var j = 0; j < word.length; j++) {
-            if (word[j] === ltr) {
-                //console.log("THE LETTER: " + answerArray[j])
-                answerArray[j] = ltr;
-                remainingLetters--;
-                
-            }
+    
+    console.log("USER VAL IN ELSE IF: "+ ltr)
+    for (var j = 0; j < word.length; j++) {
+        if (word[j] === ltr) {
+            //console.log("THE LETTER: " + answerArray[j])
+            answerArray[j] = ltr;
+            remainingLetters--;
+            
         }
-       
-        // Only works on correct guesses, how to capture wrong ones?
-        document.getElementById("alreadyGuessed").innerHTML = letterGuessed;
-    } 
-// The end of the game loop.
+    
     }
+     //Show the player their progress.
+    document.getElementById("blanks").innerHTML = answerArray.join(" ");
+    // Only works on correct guesses, how to capture wrong ones?
+    document.getElementById("alreadyGuessed").innerHTML = guessedLetters.join(" ");
 }
+
+// The end of the game loop.
+
+
 
 /* Need to figure out how to make it stop guessing 
 the first letter over and over until it hits max. */
