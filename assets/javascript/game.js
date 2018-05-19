@@ -18,6 +18,7 @@ console.log('RANDOM WORD: '+ word);
 var remainingLetters = word.length;
 var guesses = 9;
 var userVal;
+var letterGuessed;
 
 
 //Set up the answer array.
@@ -31,7 +32,7 @@ for (var i = 0; i < word.length; i++) {
 
 document.onkeyup = function(event) {
     // Converts all key clicks to uppercase letters.
-    var letterGuessed = String.fromCharCode(event.which).toUpperCase();
+    letterGuessed = String.fromCharCode(event.which).toUpperCase();
     // Runs the code to check for correctness.
     checkLetters(letterGuessed);
     guesses--;
@@ -59,9 +60,18 @@ function checkLetters(ltr){
             }
         }
        
-        
-        document.getElementById("alreadyGuessed")
+        // Only works on correct guesses, how to capture wrong ones?
+        document.getElementById("alreadyGuessed").innerHTML = letterGuessed;
     } 
 // The end of the game loop.
     }
 }
+
+/* Need to figure out how to make it stop guessing 
+the first letter over and over until it hits max. */
+
+// How to record the already guessed?
+
+// How to record wins?
+
+// Any possibility of changin the picture based on win/lose?
