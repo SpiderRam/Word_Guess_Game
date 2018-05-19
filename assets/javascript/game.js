@@ -19,7 +19,10 @@ var remainingLetters = word.length;
 var guesses = 9;
 var guessedLetters = [];
 var letterGuessed;
-
+var guessesLeft = 0;
+var correctGuesses = 0;
+var winCount = 0;
+var guessCount = 9;
 
 //Set up the answer array.
 var answerArray = [];
@@ -36,31 +39,35 @@ document.onkeyup = function(event) {
     // Runs the code to check for correctness.
     if (remainingLetters > 0 && guesses > 0) {
         guessedLetters.push(letterGuessed); 
-        checkLetters(letterGuessed);
-        guesses--;
-        console.log(guesses); 
+        checkLetters(letterGuessed) 
+        guessesLeft = guesses - guessedLetters.length + correctGuesses;
+        console.log(guessesLeft); 
     }
 
     if (guesses === 0 && remainingLetters > 0) {
-        function changeImage(img) {
-            document.getElementById("changePic").src = img.src.replace("./assets/images/lose_Starbuck.png");
-            console.log("image");
+        console.log("You lose!");
         }
-            console.log("You lose!");
-    } else if (guesses > 0 && remainingLetters ===0) {
+    /*function changeImage(img) {
+        document.getElementById("#changePic") = img.src.replace("./assets/images/lose_Starbuck.png");
+        console.log("image");
+        console.log("You lose!");*/
+    }
+    if (guesses > 0 && remainingLetters === 0) {
+        winCount++;
+        document.getElementById("wins").innerHTML = winCount;
         console.log("You win!");
     }
-}
+
 
 function checkLetters(ltr){
     
-    console.log("USER VAL IN ELSE IF: "+ ltr)
+    //console.log("Letter chosen: "+ ltr)
     for (var j = 0; j < word.length; j++) {
         if (word[j] === ltr) {
             //console.log("THE LETTER: " + answerArray[j])
             answerArray[j] = ltr;
             remainingLetters--;
-            
+            correctGuesses++;
         }
     
     }
