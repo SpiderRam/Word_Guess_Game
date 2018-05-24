@@ -24,7 +24,7 @@ var correctGuesses = 0;
 var winCount = 0;
 var guessCount = 9;
 
-//Set up the answer array.
+//Set up the answer array. make blanks.
 var answerArray = [];
 for (var i = 0; i < word.length; i++) {
     //console.log("word length: " + word.length);
@@ -34,9 +34,9 @@ for (var i = 0; i < word.length; i++) {
 }
 
 document.onkeyup = function(event) {
-    // Converts all key clicks to uppercase letters.
+    
     letterGuessed = String.fromCharCode(event.which).toUpperCase();
-    // Runs the code to check for correctness.
+    
     if (remainingLetters > 0 && guesses > 0) {
         guessedLetters.push(letterGuessed); 
         checkLetters(letterGuessed) 
@@ -59,15 +59,17 @@ document.onkeyup = function(event) {
     }
 
 
-function checkLetters(ltr){
+function checkLetters(letterGuessed){
     
-    //console.log("Letter chosen: "+ ltr)
+    //console.log("Letter chosen: "+ letterGuessed)
     for (var j = 0; j < word.length; j++) {
-        if (word[j] === ltr) {
+        if (word[j] === letterGuessed) {
             //console.log("THE LETTER: " + answerArray[j])
-            answerArray[j] = ltr;
-            remainingLetters--;
+            answerArray[j] = letterGuessed;
+            
             correctGuesses++;
+        } else {
+            remainingLetters--;
         }
     
     }
