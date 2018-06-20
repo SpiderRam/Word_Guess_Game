@@ -15,17 +15,17 @@ var word = "";
 var answerArray = [];
 var wrongGuesses = [];
 var wrongArray = [];
+var winCounter = 0;
+var wrongGuessCounter = 12;
 
 document.onkeyup = function(event) {
     var guessedLetter = event.key.toUpperCase();
     var isLetterFoundInWord = false;
     
-    // Evaluate whether letter is found in wrongArray 
-    // before "wasting cycles" in for loop
+    
     if (wrongArray.indexOf(guessedLetter) === -1) {
         
-        // Iterate over word string as an array and evaluate
-        // whether letter at position "i" === user input
+        
         for (var i = 0; i < word.length; i++) {
             if (word[i] === guessedLetter) {
                 isLetterFoundInWord = true;
@@ -34,6 +34,8 @@ document.onkeyup = function(event) {
         }
     
         if (isLetterFoundInWord === false) {
+            wrongGuessCounter --;
+            document.querySelector("#guessesRemain").innerHTML = wrongGuessCounter;
             wrongArray.push(guessedLetter);
         }
     }
@@ -44,7 +46,14 @@ document.onkeyup = function(event) {
 }
 
 function restart() {
+    
     if (word === answerArray.join("")) {
+        answerArray = [];
+        wrongArray = [];
+        winCounter ++;
+        wrongGuessCounter = 12;
+        document.querySelector("#guessesRemain").innerHTML = wrongGuessCounter;
+        document.querySelector("#wins").innerHTML=winCounter;
         chooseRandomWord();
         updateDom();
     }
@@ -52,7 +61,7 @@ function restart() {
 
 function chooseRandomWord() {
     word = gameWords[Math.floor(Math.random() * gameWords.length)];
-
+    
     for (var i = 0; i < word.length; i++) {
         answerArray[i] = "_";
     }
@@ -61,13 +70,13 @@ function chooseRandomWord() {
 }
 
 function updateDom() {
-    // Grabbing #blanks from DOM and inserting the result of .join()
-    // .join creates a string from the values stored in the answeArray
+    console.log("UPDATE BLANKS: " + answerArray)
+    console.log("UPDATE GUESSES: "+ wrongArray)
+    
     document.getElementById("blanks").innerHTML = answerArray.join(" ");
     document.getElementById("alreadyGuessed").innerHTML = wrongArray.join(", ");
 }
 
-// Start game on first run:
 
 chooseRandomWord();
 updateDom();
