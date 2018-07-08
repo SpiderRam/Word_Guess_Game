@@ -1,6 +1,6 @@
 # Word_Guess_Game
 
-This was the homework assignment for week three of the botcamp.  The requirements were:
+This was the homework assignment for week three of the bootcamp.  The requirements were:
 
 ~Choose a theme for your game! 
 
